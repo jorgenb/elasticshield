@@ -1,0 +1,25 @@
+{
+    "name": "jorgenb/elasticshield",
+    "description": "Create and secure your Elasticsearch indices.",
+    "type": "library",
+    "version": "v0.1.0",
+    "require": {
+        "laravel/passport": "^1.0",
+        "elasticsearch/elasticsearch": "^5.1",
+        "firebase/php-jwt": "^4.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jørgen Birkhaug",
+            "email": "jorgen.birkhaug@uib.no"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Jorgenb\\ElasticShield\\": "src/"
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

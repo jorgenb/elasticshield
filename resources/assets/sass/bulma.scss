@@ -1,0 +1,58 @@
+// Fonts
+@import "node_modules/font-awesome/scss/font-awesome";
+@import 'elasticshield/overrides';
+@import "nprogress";
+@import "animate";
+@import 'node_modules/bulma/bulma';
+
+.modal.is-active .modal-background {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.message-body .table {
+  background-color: transparent;
+}
+
+.stats .icon.yellow .fa {
+  color: $warning;
+}
+
+.stats .icon.red .fa {
+  color: $danger;
+}
+
+.stats .icon.green .fa {
+  color: $success;
+}
+
+pre {
+  background-color: whitesmoke;
+  color: #4a4a4a;
+  font-size: 0.8em;
+  white-space: pre-line;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.md-editor .textarea {
+  //min-height: 100%;
+  height: 100vh;
+  max-height: none;
+}
+
+.md-editor .input, .textarea {
+  border-radius: 0;
+  border: 0px solid #dbdbdb;
+}
+
+#md-commit-button {
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+}
+
+
+
+
+
+
+
