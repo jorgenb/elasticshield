@@ -479,8 +479,11 @@ events {
 }
 
 http {
+  # Path to additional LUA-scripts that come in addition to ones provided by Openresty.
+  # You could you one of the Openresty package managers instead ...
   lua_package_path "/path/to/lua-resty-jwt/lib/?.lua;/path/to/lua-resty-hmac/lib/?.lua;;";
 
+  # The Elasticsearch node or cluster.
   upstream elasticsearch {
     server 127.0.0.1:9200;
     keepalive 15;
@@ -503,7 +506,13 @@ server {
   }
 
   location / {
+    # The private key used to sign your JWT tokens. Should match the one you use for Elasticshield
+    set $jwt_secret "example_key";
+    
+    # Use access_by_lua_file or similiar to parse the request before Nginx renders.
     access_by_lua_file /full/path/to/elasticshield.lua;
+    
+    # Send the request to Elasticsearch as you would normally
     proxy_pass http://elasticsearch/$uri;
     }
   }
