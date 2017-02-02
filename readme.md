@@ -580,12 +580,10 @@ end
 -- Define all Elasticsearch API routes and methods.
 local allowed  = false
 local restrictions = {
-	["^/$"]                             = { "HEAD" },
-	["^/$"]                             = { "GET" },
+	["^/$"]                             = { "GET", "HEAD" },
     ["^/?[^/]*/?[^/]*/_search"]         = { "GET", "POST" },
     ["^/?[^/]*/?[^/]*/_msearch"]        = { "GET", "POST" },
     ["^/?[^/]*/?[^/]*/_validate/query"] = { "GET", "POST" },
-    ["/_aliases"]                       = { "GET" },
     ["/_cluster.*"]                     = { "GET" },
     ["^/?[^/]*/?[^/]*/_bulk"]           = { "GET", "POST" },
     ["^/?[^/]*/?[^/]*/_refresh"]        = { "GET", "POST" },
