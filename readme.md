@@ -4,29 +4,37 @@
 
 # Elasticshield
 
-Elasticshield is an OAuth 2.0 Server that allows you to create, manage and protect your Elasticsearch indices using
-a web frontend and/or a JSON api. In a nutshell, Elasticshield allows you to exchange an OAuth 2.0 Bearer token for
-JWT token that will allow or deny access to a specific Elasticsearch API endpoint.
+Elasticshield is an [OAuth 2.0 Server](https://github.com/thephpleague/oauth2-server) that allows you to create,
+manage and protect your [Elasticsearch](https://www.elastic.co/) indices using a web frontend and/or a JSON api.
+In a nutshell, Elasticshield allows you to exchange an
+[Personal Access Token](https://tools.ietf.org/html/rfc6749#section-1.4) for a
+[JWT token](https://tools.ietf.org/html/rfc7519) that will allow or deny access to a specific Elasticsearch
+API endpoint.
 
-A user can have one or more Elasticsearch indices protected by one Oauth 2.0 token.
+A user can have one or more Elasticsearch indices protected by one Personal Access Token.
 
 In addition to this application you will need to install and configure a HTTP server that can handle the authorization
-part of protecting your Elasticsearch indices.
+part of protecting your Elasticsearch indices. This server must be capable of supporting
+[LuaJIT](http://openresty.org/en/luajit.html/).
 
-On this page you will find examples on how to configure an `OpenResty` server for this purpose.
+On this page you will find examples on how to configure an [OpenResty](http://openresty.org/) server for this purpose.
 
 ## Installing and configuring Elasticshield
 
-Create a new Laravel 5.4 application and make sure to configure a database, an application key and pull in all the
-dependencies defined in your `package.json` file:
+Create a new [Laravel](https://laravel.com/) 5.4 application and make sure to configure a database,
+an application key and pull in all the dependencies listed in your `package.json` file:
 
 ```bash
 laravel new elasticshield
 ```
 
+Navigate to your directory where you installed Laravel and run `yarn`:
+
 ```bash
 yarn or npm install
 ```
+
+Proceed with configuring a database connection.
 
 For more information on creating, configuring and serving a Laravel application please see: https://laravel.com/docs
 
