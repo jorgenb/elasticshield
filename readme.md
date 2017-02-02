@@ -15,7 +15,7 @@ A user can have one or more Elasticsearch indices protected by one Personal Acce
 
 In addition to this application you will need to install and configure a HTTP server that can handle the authorization
 part of protecting your Elasticsearch indices. This server must be capable of supporting
-[LuaJIT](http://openresty.org/en/luajit.html/).
+[LuaJIT](http://openresty.org/en/luajit.html).
 
 On this page you will find examples on how to configure an [OpenResty](http://openresty.org/) server for this purpose.
 
