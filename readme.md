@@ -346,19 +346,6 @@ curl --request GET \
 ```
 
 ---
-`GET /api/shield/indices/{index-id}`
-
-The route shows an index:
-```
-curl --request GET \
-  --include \
-  --url http://localhost/api/elasticshield/indices/1 \
-  --header 'accept: application/json' \
-  --header 'cache-control: no-cache' \
-  --header 'authorization: Bearer ...'
-```
-
----
 `POST /api/shield/indices`
 
 Create an Elasticsearch Index with the default settings configured in this API:
@@ -371,7 +358,6 @@ curl --request POST \
   --header 'content-type: application/json' \
   --header 'cache-control: no-cache' \
   --header 'authorization: Bearer ...'
-
 ```
 ---
 `DELETE /api/shield/indices/{index-id}`
@@ -405,7 +391,7 @@ curl --request GET \
 `GET /api/oauth/personal-access-tokens`
 
 This route returns all of the personal access tokens that the authenticated user has created.
-This is primarily useful for listing all of the user's token so that they may edit or delete them:
+This is primarily useful for listing all of the user's tokens so that they may edit or delete them:
 ```
 curl --request GET \
   --include \
@@ -477,8 +463,7 @@ events {
 }
 
 http {
-  # Path to additional LUA-scripts that come in addition to ones provided by Openresty.
-  # You could you one of the Openresty package managers instead ...
+  # Path to additional LUA-scripts.
   lua_package_path "/path/to/lua-resty-jwt/lib/?.lua;/path/to/lua-resty-hmac/lib/?.lua;;";
 
   # The Elasticsearch node or cluster.
@@ -507,7 +492,7 @@ server {
     # The private key used to sign your JWT tokens. Should match the one you use for Elasticshield
     set $jwt_secret "example_key";
     
-    # Use access_by_lua_file or similiar to parse the request before Nginx renders.
+    # Use the access_by_lua_file directive or similiar to parse the request before Nginx renders.
     access_by_lua_file /full/path/to/elasticshield.lua;
     
     # Send the request to Elasticsearch as you would normally
@@ -593,7 +578,7 @@ if not a then
 end
 
 -- Define all Elasticsearch API routes and methods.
-local allowed  = false -- Assign var that will be used to ultimately deny or allow access.
+local allowed  = false
 local restrictions = {
 	["^/$"]                             = { "HEAD" },
 	["^/$"]                             = { "GET" },
@@ -655,6 +640,7 @@ end
 
 ## Other resources:
 
+- https://laravel.com/docs/5.3/passport
 - https://www.elastic.co/blog/playing-http-tricks-nginx
 - https://gist.github.com/karmi/b0a9b4c111ed3023a52d#file-authorize-lua
 - https://github.com/SkyLothar/lua-resty-jwt
