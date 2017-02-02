@@ -56,10 +56,10 @@ class ElasticShieldUser extends Command
             'Enter a name for the token'
         );
 
-        $scope = $this->choice('Select the scopes for this token', ['get', 'post', 'put', 'delete']);
+        $scopes = $this->choice('Select the scopes for this token (', ['get', 'post', 'put', 'delete'], null, null, true);
 
         $user = User::find($user_id);
-        $token = $user->createToken($name, [$scope])->accessToken;
+        $token = $user->createToken($name, $scopes)->accessToken;
         $this->info($token);
     }
 
@@ -88,7 +88,9 @@ class ElasticShieldUser extends Command
         $token = $user->createToken('ELASTIC_API_ADMIN_TOKEN', ['admin'])->accessToken;
 
         $this->info('THIS IS THE ONLY TIME THAT THIS TOKEN WILL BE DISPLAYED SO PLEASE SAVE A COPY IN A SECURE PLACE');
+        $this->info('===============================================================================================');
         $this->info($token);
+        $this->info('===============================================================================================');
 
     }
 }

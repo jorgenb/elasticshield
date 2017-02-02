@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 class ElasticShield {
 
     /**
-     * Get a Passport route registrar.
+     * Get an Elasticshield route registrar for all things API.
      *
      * @param  array  $options
      * @return RouteRegistrar
@@ -29,7 +29,7 @@ class ElasticShield {
 
 
     /**
-     * Get a Passport route registrar.
+     * Get an Elasticshield route registrar for all things frontend.
      *
      * @param  array  $options
      * @return RouteRegistrar

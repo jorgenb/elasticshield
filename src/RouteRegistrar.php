@@ -63,7 +63,7 @@ class RouteRegistrar
                     "aud" => $elasticIndex,
                     "iat" => Carbon::now()->timestamp,
                     "nbf" => Carbon::now()->timestamp,
-                    'exp' => Carbon::now()->addMinutes(2)->timestamp,
+                    'exp' => Carbon::now()->addMinutes(65)->timestamp,
                     'scopes' => $request->user()->token()->scopes, // kinda funny to have an array in a jwt token :)
                 );
 

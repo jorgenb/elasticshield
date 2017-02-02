@@ -1,6 +1,6 @@
 > TIP! Read this entire page before proceeding with setup.
 
-> PLEASE NOTE! This little project is very much work in progress and should not be considered production ready.
+> PLEASE NOTE! This package is very much work in progress and should not be considered production ready.
 
 # Elasticshield
 
@@ -9,8 +9,6 @@ a web frontend and/or a JSON api. In a nutshell, Elasticshield allows you to exc
 JWT token that will allow or deny access to a specific Elasticsearch API endpoint.
 
 A user can have one or more Elasticsearch indices protected by one Oauth 2.0 token.
-
-Elasticshield does not ship with a frontend for handling logins and you will have to build this yourself if you so wish.
 
 In addition to this application you will need to install and configure a HTTP server that can handle the authorization
 part of protecting your Elasticsearch indices.
@@ -567,7 +565,7 @@ if not jwt_token then
 	jwt_token = response.body
 
 	-- Set cookie and make _sure_ to expire it before the token expires.
-	ngx.header['Set-Cookie'] = "jwt=" .. response.body .. "; Expires=" .. ngx.cookie_time(ngx.time()+60) .. ";" 
+	ngx.header['Set-Cookie'] = "jwt=" .. response.body .. "; Expires=" .. ngx.cookie_time(ngx.time()+3600) .. ";" 
 end
 
 -- Check that token provided by the client is valid using private key.
