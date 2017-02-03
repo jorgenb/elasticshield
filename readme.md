@@ -11,7 +11,14 @@ In a nutshell, Elasticshield allows you to exchange an
 [JWT token](https://tools.ietf.org/html/rfc7519) that will allow or deny access to a specific Elasticsearch
 API endpoint.
 
-A user can have one or more Elasticsearch indices protected by one Personal Access Token.
+Features:
+
+- Simplified authentication process using long lived Personal Access Tokens.
+- Rate limiting on authentication attempts.
+- Client authenticates once and then get’s a JWT token that expires after a set time.
+- A user can have one or more indices protected by a token.
+- Elastic shield JSON Api for managing indices and tokens.
+- Self service web fronted for managing indices and tokens.
 
 In addition to this application you will need to install and configure a HTTP server that can handle the authorization
 part of protecting your Elasticsearch indices. This server must be capable of supporting
