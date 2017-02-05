@@ -15,6 +15,7 @@ Features:
 
 - Simplified authentication process using long lived Personal Access Tokens.
 - Rate limiting on authentication attempts.
+- Tie Oauth scopes as HTTP request methods (e.g. 'GET', 'PUT', 'POST', 'DELETE') for your token. 
 - Client authenticates once and then get’s a JWT token that expires after a set time.
 - A user can have one or more indices protected by a token.
 - Elastic shield JSON Api for managing indices and tokens.
