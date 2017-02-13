@@ -2,9 +2,9 @@
     <div class="container">
         <div class="content has-text-centered">
             <p>
-                See https://github.com/jorgenb/elasticshield for documentation.
+                See https://github.com/jorgenb/oauthshield for documentation.
                 <br><br>
-                <a class="icon" href="{{ url('https://github.com/jorgenb/elasticshield') }}">
+                <a class="icon" href="{{ url('https://github.com/jorgenb/oauthshield') }}">
                     <i class="fa fa-git-square"></i>
                 </a>
             </p>

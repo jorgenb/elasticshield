@@ -1,19 +1,19 @@
 <?php
 
-namespace Jorgenb\ElasticShield\Console;
+namespace Jorgenb\OAuthShield\Console;
 
 use App\User;
 use Illuminate\Console\Command;
 use Laravel\Passport\Passport;
 
-class ElasticShieldUser extends Command
+class OAuthShieldUser extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'elasticshield:user
+    protected $signature = 'oauthshield:user
             {--admin : Create a user with unrestricted access to the cluster.}';
 
     /**

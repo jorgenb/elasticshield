@@ -1,6 +1,6 @@
 <?php
 
-namespace Jorgenb\ElasticShield;
+namespace Jorgenb\OAuthShield;
 
 use App\User;
 use Illuminate\Database\Eloquent\Model;

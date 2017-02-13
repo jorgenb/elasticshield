@@ -6,17 +6,13 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
-/**
- * Class ShieldTestApi
- *
- * Run this script: 'vendor/bin/phpunit tests/Feature/ElasticShieldTestApi.php'
- */
-class ElasticShieldTestApi extends TestCase
+
+class OAuthShieldTestApi extends TestCase
 {
     use WithoutMiddleware;
 
     /**
-     * Test the Elastic Shield API routes.
+     * Test the OAuth Shield API routes.
      */
     public function testShieldRoutes()
     {

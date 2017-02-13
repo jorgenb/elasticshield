@@ -1,12 +1,13 @@
 > TIP! Read this entire page before proceeding with setup.
 
-> PLEASE NOTE! This package is very much work in progress and should not be considered production ready.
+> PLEASE NOTE! This package is work in progress and should not be considered production ready.
 
-# Elasticshield
+# OAuth Shield
 
-Elasticshield is an [OAuth 2.0 Server](https://github.com/thephpleague/oauth2-server) that allows you to create,
+OAuth Shield is a package for [Laravel](https://www.laravel.com) that includes an
+[OAuth 2.0 Server](https://github.com/thephpleague/oauth2-server) that allows you to create,
 manage and protect your [Elasticsearch](https://www.elastic.co/) indices using a web frontend and/or a JSON api.
-In a nutshell, Elasticshield allows you to exchange an
+In a nutshell, OAuth Shield allows you to exchange an
 [Personal Access Token](https://tools.ietf.org/html/rfc6749#section-1.4) for a
 [JWT token](https://tools.ietf.org/html/rfc7519) that will allow or deny access to a specific Elasticsearch
 API endpoint.
@@ -27,33 +28,35 @@ part of protecting your Elasticsearch indices. This server must be capable of su
 
 On this page you will find examples on how to configure an [OpenResty](http://openresty.org/) server for this purpose.
 
-## Installing and configuring Elasticshield
+![OAuth Shield demo](oauth_shield_demo.gif?raw=true "OAuth Shield frontend demo.")
+
+## Installing and configuring OAuth Shield
 
 Create a new [Laravel](https://laravel.com/) 5.4 application and make sure to configure a database,
 an application key and pull in all the dependencies listed in your `package.json` file:
 
 ```bash
-laravel new elasticshield
+laravel new oauthshield
 ```
 
 Navigate to your directory where you installed Laravel and run `yarn`:
 
 ```bash
-yarn or npm install
+yarn
 ```
 
 Proceed with configuring a database connection.
 
 For more information on creating, configuring and serving a Laravel application please see: https://laravel.com/docs
 
-Install the Elasticsearch package by adding it to your `composer.json` file:
+Install the OAuth Shield package by adding it to your `composer.json` file:
 
 ```bash
    "require": {
         "php": ">=5.6.4",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
-        "jorgenb/elasticshield": "v0.1.0"
+        "jorgenb/oauthshield": "v0.1.1"
     },
 ```
 
@@ -63,21 +66,21 @@ Make sure you run PHP Composer to install it:
 composer update
 ```
 
-Once installed, register the ElasticShield and Laravel Passport service providers in the `providers` array of your `config/app.php`
+Once installed, register the OAuth Shield and Laravel Passport service providers in the `providers` array of your `config/app.php`
 configuration file:
 
 ```php
 Laravel\Passport\PassportServiceProvider::class,
-Jorgenb\ElasticShield\ShieldServiceProvider::class,
+Jorgenb\OAuthShield\ShieldServiceProvider::class,
 ```
 
-Register the Elasticshield Cluster facade in the `aliases` array of your `config/app.php` configuration file:
+Register the OAuth Shield Cluster facade in the `aliases` array of your `config/app.php` configuration file:
 
 ```php
-'ElasticSearchCluster' => \Jorgenb\ElasticShield\Facades\ElasticSearchCluster::class,
+'ElasticSearchCluster' => \Jorgenb\OAuthShield\Facades\ElasticSearchCluster::class,
 ```
 
-The Elasticshield and Laravel Passport service provider registers its own database migration directory with Laravel,
+The OAuth Shield and Laravel Passport service provider registers its own database migration directory with Laravel,
 so you should migrate your database after registering the provider.
 
 > If you are using MariaDB you most likely need to alter the default string length that Laravel uses.
@@ -91,8 +94,8 @@ so you should migrate your database after registering the provider.
 > ```
 > See: https://laravel.com/docs/5.4/releases for more information.
 
-The Elasticshield migrations will create a table
-to store the names of your Elasticsearch indices. The Passport migrations will create the tables that Elasticshield
+The OAuth Shield migrations will create a table
+to store the names of your Elasticsearch indices. The Passport migrations will create the tables that OAuth Shield
 needs to store clients and access tokens:
 
 
@@ -108,7 +111,7 @@ which will be used to generate access tokens:
 php artisan passport:install
 ```
 
-Add the `Laravel\Passport\HasApiTokens` and the `Jorgenb\Elasticshield\HasElasticSearchIndices`
+Add the `Laravel\Passport\HasApiTokens` and the `Jorgenb\OAuthShield\HasElasticSearchIndices`
 traits to your `App\User` model.
 
 ```php
@@ -117,7 +120,7 @@ traits to your `App\User` model.
 namespace App;
 
 use Laravel\Passport\HasApiTokens;
-use Jorgenb\ElasticShield\HasElasticsearchIndices;
+use Jorgenb\OAuthShield\HasElasticsearchIndices;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -140,12 +143,18 @@ Change the Api authentication guard to use the Laravel Passport driver in the `a
     ],
 ```
 
-Finally add the Elasticshield API routes to your `AuthServiceProvider.php` file:
+Change the default name of the Laravel application in the `app.php` file located at `config/app.php`:
+
+```
+'name' => 'OAuth Shield',
+```
+
+Finally add the OAuth Shield API routes to your `AuthServiceProvider.php` file:
 
 ```php
 public function boot()
 {
-  ElasticShield::apiRoutes();
+  OAuthShield::apiRoutes();
 }
 ```
 
@@ -173,7 +182,7 @@ ELASTICSEARCH_HOST=http://localhost:9200
 Use Artisan to create a new admin user:
 
 ```
-php artisan elasticshield:user --admin
+php artisan oauthshield:user --admin
 ```
 
 This command will make a new user in your database along with a Personal Access Token that will have full
@@ -181,33 +190,33 @@ access to your Elasticsearch cluster.
 
 **Please store this token in a safe place since this is the only time that it will be displayed**.
 
-## Installing and configuring the Elasticshield Frontend
+## Installing and configuring the OAuth Shield Frontend
 
-You can use the following pre-built Vue components as a frontend for the Elasticshield API.
+You can use the following pre-built Vue components as a frontend for the OAuth Shield API.
 
 To publish the components use the `vendor:publish` Artisan command:
 
 ```shell
-php artisan vendor:publish --tag=elasticshield-components
+php artisan vendor:publish --tag=oauthshield-components
 ```
 
-The published components will be placed in your `resources/assets/js/components/elasticshield` directory.
+The published components will be placed in your `resources/assets/js/components/oauthshield` directory.
 Once the components have been published, you should register them in your `resources/assets/js/app.js` file:
 
 ```javascript
 Vue.component(
     'personal-access-tokens',
-    require('./components/elasticshield/PersonalAccessTokens.vue')
+    require('./components/oauthshield/PersonalAccessTokens.vue')
 );
 
 Vue.component(
     'elasticsearch-indices',
-    require('./components/elasticshield/ElasticsearchIndices.vue')
+    require('./components/oauthshield/ElasticsearchIndices.vue')
 );
 
 Vue.component(
     'cluster-stats',
-    require('./components/elasticshield/ClusterStats.vue')
+    require('./components/oauthshield/ClusterStats.vue')
 );
 ```
 
@@ -218,11 +227,11 @@ Laravel you would use `gulp` to do this).
 npm run dev
 ```
 
-You can either drop these components into your own frontend or use the bundled Elasticshield frontend.
-Elasticshield uses the Bulma CSS Framework and you can publish the SASS project files by running:
+You can either drop these components into your own frontend or use the bundled OAuth Shield frontend.
+OAuth Shield uses the Bulma CSS Framework and you can publish the SASS project files by running:
 
 ```
-php artisan vendor:publish --tag=elasticshield-sass
+php artisan vendor:publish --tag=oauthshield-sass
 ```
 
 The SASS project files will be placed in your `resources/assets/sass` directory.
@@ -294,16 +303,16 @@ Make sure you run `npm run dev` to recompile all your assets (in previous versio
 npm run dev
 ```
 
-Finally add the Elasticshield frontend routes to your `AuthServiceProvider.php` file:
+Finally add the OAuth Shield frontend routes to your `AuthServiceProvider.php` file:
 
 ```php
 public function boot()
 {
-  ElasticShield::frontendRoutes();
+  OAuthShield::frontendRoutes();
 }
 ```
 
-This version of Elasticshield does not ship with a frontend for handling logins.
+This version of OAuth Shield does not ship with a frontend for handling logins.
 If you quickly want to test all features of the frontend you can circumvent this
 limitation by manually logging a user into Laravel. Add the following code to
 your `web.php` file located in your `routes` directory:
@@ -314,28 +323,28 @@ use Illuminate\Support\Facades\Auth;
 Auth::loginUsingId(1);
 ```
 
-You should now be able to access the HTTP frontend at:
+You should now be able to access the Oauth Shield frontend were you have configured your Laravel application. E. g.:
 
-http://localhost/elasticshield
+http://localhost/oauthshield
 
 For more information on serving a Laravel application through a HTTP server please refer to https://laravel.com/docs
 
-You can use Artisan to inspect which routes are available through Elasticshield:
+You can use Artisan to inspect which routes are available through OAuth Shield:
 
 ```
 php artisan route:list
 ```
 
-### Testing Elasticshield
+### Testing OAuth Shield
 
 Tests can be published to your Laravel project by running:
 
 ```shell
-php artisan vendor:publish --tag=elasticshield-tests
+php artisan vendor:publish --tag=oauthshield-tests
 ```
 
-This will publish the ElasticShieldTestApi.php file to your `tests/Feature` directory.
-This file performs a series of HTTP tests against the Elasticshield JSON Api.
+This will publish the OAuthShieldTestApi.php file to your `tests/Feature` directory.
+This file performs a series of HTTP tests against the OAuth Shield JSON Api.
 
 Make sure to update your `TestCase.php` file located in the `tests` directory to reflect your environment.
 
@@ -355,7 +364,7 @@ This route returns any indices that the user has created:
 ```
 curl --request GET \
   --include \
-  --url http://localhost/api/elasticshield/indices \
+  --url http://localhost/api/oauthshield/indices \
   --header 'accept: application/json' \
   --header 'cache-control: no-cache' \
   --header 'authorization: Bearer ...'
@@ -368,7 +377,7 @@ Create an Elasticsearch Index with the default settings configured in this API:
 ```
 curl --request POST \
   --include \
-  --url http://localhost/api/elasticshield/indices \
+  --url http://localhost/api/oauthshield/indices \
   --data '{ "name": "..." }' \
   --header 'accept: application/json' \
   --header 'content-type: application/json' \
@@ -382,7 +391,7 @@ Delete an Elasticsearch Index:
 ```
 curl --request DELETE \
   --include \
-  --url http://localhost/api/elasticshield/indices/123 \
+  --url http://localhost/api/oauthshield/indices/123 \
   --header 'accept: application/json' \
   --header 'content-type: application/json' \
   --header 'cache-control: no-cache' \
@@ -505,11 +514,11 @@ server {
   }
 
   location / {
-    # The private key used to sign your JWT tokens. Should match the one you use for Elasticshield
+    # The private key used to sign your JWT tokens. Should match the one you use for OAuth Shield
     set $jwt_secret "example_key";
     
     # Use the access_by_lua_file directive or similiar to parse the request before Nginx renders.
-    access_by_lua_file /full/path/to/elasticshield.lua;
+    access_by_lua_file /full/path/to/oauthshield.lua;
     
     # Send the request to Elasticsearch as you would normally
     proxy_pass http://elasticsearch/$uri;
@@ -518,7 +527,7 @@ server {
 }
 ```
 
-`elasticshield.lua`:
+`oauthshield.lua`:
 
 ```lua
 local jwt = require "resty.jwt"
@@ -650,7 +659,7 @@ end
 ## TODO
 
 - Make test case for Openresty.
-- Implement admin access to Elasticshield.
+- Implement admin access to OAuth Shield.
 
 ## Other resources:
 

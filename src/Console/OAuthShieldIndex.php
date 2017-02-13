@@ -1,20 +1,20 @@
 <?php
 
-namespace Jorgenb\ElasticShield\Console;
+namespace Jorgenb\OAuthShield\Console;
 
 use App\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Validator;
-use Jorgenb\ElasticShield\Facades\ElasticSearchCluster;
+use Jorgenb\OAuthShield\Facades\ElasticSearchCluster;
 
-class ElasticShieldIndex extends Command
+class OAuthShieldIndex extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'elasticshield:index';
+    protected $signature = 'oauthshield:index';
 
     /**
      * The console command description.

@@ -1,10 +1,10 @@
 <?php
 
-namespace Jorgenb\ElasticShield\Http\Controllers;
+namespace Jorgenb\OAuthShield\Http\Controllers;
 
 use Laravel\Passport\Passport;
 
-class ElasticShieldScopeController
+class OAuthShieldScopeController
 {
 
     /**

@@ -1,15 +1,15 @@
 <?php
 
-namespace Jorgenb\ElasticShield\Http\Controllers;
+namespace Jorgenb\OAuthShield\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Jorgenb\ElasticShield\ElasticIndex;
-use Jorgenb\ElasticShield\Facades\ElasticSearchCluster;
+use Jorgenb\OAuthShield\ElasticIndex;
+use Jorgenb\OAuthShield\Facades\ElasticSearchCluster;
 
-class ElasticShieldIndexController extends Controller
+class OAuthShieldIndexController extends Controller
 {
     /**
      * Return all indices for the authenticated user.

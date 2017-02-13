@@ -1,4 +1,4 @@
-@extends('elasticshield::layouts.app')
+@extends('oauthshield::layouts.app')
 
 @section('content')
     <section class="hero is-medium is-primary is-bold">
@@ -10,7 +10,7 @@
                             <span class="icon is-large">
                                 <i class="fa fa-shield" aria-hidden="true"></i>
                             </span>
-                            Elasticshield {{env('RELEASE')}}
+                            {{ config('app.name', 'OAuth Shield') }} {{env('RELEASE')}}
                         </h1>
                         <h2 class="subtitle">
                             Create and manage your Elasticsearch Indices

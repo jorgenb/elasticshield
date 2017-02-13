@@ -1,4 +1,4 @@
-@extends('elasticshield::layouts.app')
+@extends('oauthshield::layouts.app')
 
 @section('content')
     <section class="section">

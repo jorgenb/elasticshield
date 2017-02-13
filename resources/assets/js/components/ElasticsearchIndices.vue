@@ -114,7 +114,7 @@
              * Retrieve the authenticated user's Elasticsearch indices.
              */
             getIndices () {
-                this.$http.get('/elasticshield/indices')
+                this.$http.get('/oauthshield/indices')
                     .then(response => {
                         this.indices = response.data;
                     });
@@ -125,7 +125,7 @@
             store() {
                 this.form.errors = [];
 
-                this.$http.post('/elasticshield/indices', this.form)
+                this.$http.post('/oauthshield/indices', this.form)
                     .then(response => {
                         this.form.name = '';
                         this.form.errors = [];
@@ -161,7 +161,7 @@
              */
             deleteElasticIndex() {
 
-                this.$http.delete('/elasticshield/indices/' + this.index.id)
+                this.$http.delete('/oauthshield/indices/' + this.index.id)
                     .then(response => {
                         this.showDeleteIndexModal = false;
                         this.getIndices();

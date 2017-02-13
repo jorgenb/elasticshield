@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Jorgenb\ElasticShield;
+namespace Jorgenb\OAuthShield;
 
 
 use Elasticsearch\ClientBuilder;

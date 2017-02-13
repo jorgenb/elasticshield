@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Elasticshield') }}</title>
+    <title>{{ config('app.name', 'OAuth Shield') }}</title>
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
@@ -25,11 +25,11 @@
         <nav class="nav has-shadow">
             <div class="container">
                 <div class="nav-left">
-                    <a href="{{ url('/elasticshield') }}" class="nav-item is-brand">
-                        Elasticshield
+                    <a href="{{ url('/oauthshield') }}" class="nav-item is-brand">
+                        {{ config('app.name', 'OAuth Shield') }}
                     </a>
                     @if (Auth::user())
-                        <a href="{{ url('elasticshield/home') }}" class="nav-item is-tab {{Request::is('elasticshield/home') ? 'is-active' : ''}}">Home</a>
+                        <a href="{{ url('oauthshield/home') }}" class="nav-item is-tab {{Request::is('oauthshield/home') ? 'is-active' : ''}}">Home</a>
                     @endif
                 </div>
                 <div class="nav-center">
@@ -44,7 +44,7 @@
 
         @yield('content')
     </div>
-    @include('elasticshield::footer')
+    @include('oauthshield::footer')
     <!-- Scripts -->
     <script src="/js/app.js"></script>
 </body>

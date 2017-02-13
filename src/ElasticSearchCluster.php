@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Jorgenb\ElasticShield;
+namespace Jorgenb\OAuthShield;
 
 
 class ElasticSearchCluster

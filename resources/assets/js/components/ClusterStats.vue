@@ -68,7 +68,7 @@
         },
         methods: {
             getStats () {
-                this.$http.get('/elasticshield/stats')
+                this.$http.get('/oauthshield/stats')
                     .then(response => {
                         this.stats = response.data;
                         this.statsLoaded = true;

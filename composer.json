@@ -1,8 +1,8 @@
 {
-    "name": "jorgenb/elasticshield",
+    "name": "jorgenb/oauthshield",
     "description": "Create and secure your Elasticsearch indices.",
     "type": "library",
-    "version": "v0.1.0",
+    "version": "v0.1.1",
     "require": {
         "laravel/passport": "^1.0",
         "elasticsearch/elasticsearch": "^5.1",
@@ -17,7 +17,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Jorgenb\\ElasticShield\\": "src/"
+            "Jorgenb\\OAuthShield\\": "src/"
         }
     },
     "minimum-stability": "stable",

@@ -1,6 +1,6 @@
 <?php
 
-namespace Jorgenb\ElasticShield\Http\Controllers;
+namespace Jorgenb\OAuthShield\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -8,7 +8,7 @@ use Laravel\Passport\Passport;
 use Laravel\Passport\PersonalAccessTokenResult;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
 
-class ElasticShieldPersonalAccessTokenController
+class OAuthShieldPersonalAccessTokenController
 {
     /**
      * The validation factory implementation.
@@ -36,10 +36,8 @@ class ElasticShieldPersonalAccessTokenController
      */
     public function forUser(Request $request)
     {
-        $this->revokeOtpToken($request);
-
         return $request->user()->tokens->load('client')->filter(function ($token) {
-            return $token->client->personal_access_client && ! $token->revoked && $token->name != 'OTP';
+            return $token->client->personal_access_client && ! $token->revoked;
         })->values();
     }
 
@@ -56,8 +54,6 @@ class ElasticShieldPersonalAccessTokenController
             'scopes' => 'array|in:'.implode(',', Passport::scopeIds()),
         ])->validate();
 
-        $this->revokeOtpToken($request);
-
         return $request->user()->createToken(
             $request->name, $request->scopes ?: []
         );
@@ -72,24 +68,10 @@ class ElasticShieldPersonalAccessTokenController
      */
     public function destroy(Request $request, $tokenId)
     {
-        $this->revokeOtpToken($request);
-
         if (is_null($token = $request->user()->tokens->find($tokenId))) {
             return new Response('', 404);
         }
 
         $token->revoke();
-    }
-
-    /**
-     * Revoke a token
-     *
-     * @param Request $request
-     */
-    private function revokeOtpToken(Request $request)
-    {
-        if ($request->user()->tokenCan('OTP')) {
-            $request->user()->token()->revoke();
-        };
     }
 }

@@ -1,13 +1,13 @@
 <?php
 
-namespace Jorgenb\ElasticShield;
+namespace Jorgenb\OAuthShield;
 
 use Illuminate\Support\Facades\Route;
 
-class ElasticShield {
+class OAuthShield {
 
     /**
-     * Get an Elasticshield route registrar for all things API.
+     * Get an OAuth Shield route registrar for all things API.
      *
      * @param  array  $options
      * @return RouteRegistrar
@@ -19,7 +19,7 @@ class ElasticShield {
         };
 
         $options = array_merge($options, [
-            'namespace' => '\Jorgenb\ElasticShield\Http\Controllers',
+            'namespace' => '\Jorgenb\OAuthShield\Http\Controllers',
         ]);
 
         Route::group($options, function ($router) use ($callback) {
@@ -29,7 +29,7 @@ class ElasticShield {
 
 
     /**
-     * Get an Elasticshield route registrar for all things frontend.
+     * Get an OAuth Shield route registrar for all things frontend.
      *
      * @param  array  $options
      * @return RouteRegistrar
@@ -41,7 +41,7 @@ class ElasticShield {
         };
 
         $options = array_merge($options, [
-            'namespace' => '\Jorgenb\ElasticShield\Http\Controllers',
+            'namespace' => '\Jorgenb\OAuthShield\Http\Controllers',
         ]);
 
         Route::group($options, function ($router) use ($callback) {

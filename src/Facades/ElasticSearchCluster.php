@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Jorgenb\ElasticShield\Facades;
+namespace Jorgenb\OAuthShield\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

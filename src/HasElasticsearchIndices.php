@@ -1,6 +1,6 @@
 <?php
 
-namespace Jorgenb\ElasticShield;
+namespace Jorgenb\OAuthShield;
 
 trait HasElasticsearchIndices
 {

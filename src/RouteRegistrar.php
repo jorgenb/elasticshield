@@ -1,6 +1,6 @@
 <?php
 
-namespace Jorgenb\ElasticShield;
+namespace Jorgenb\OAuthShield;
 
 use Carbon\Carbon;
 use Firebase\JWT\JWT;
@@ -78,17 +78,17 @@ class RouteRegistrar
     public function forFrontend()
     {
         $this->router->group(['middleware' => ['web']], function ($router) {
-            $router->get('/elasticshield', [
-                'uses' => 'ElasticShieldFrontendController@welcome',
+            $router->get('/oauthshield', [
+                'uses' => 'OAuthShieldFrontendController@welcome',
             ]);
-            $router->get('/elasticshield/stats', [
-                'uses' => 'ElasticShieldFrontendController@stats',
+            $router->get('/oauthshield/stats', [
+                'uses' => 'OAuthShieldFrontendController@stats',
             ]);
         });
 
         $this->router->group(['middleware' => ['web', 'auth']], function ($router) {
-            $router->get('/elasticshield/home', [
-                'uses' => 'ElasticShieldFrontendController@home',
+            $router->get('/oauthshield/home', [
+                'uses' => 'OAuthShieldFrontendController@home',
             ]);
         });
     }
@@ -100,11 +100,11 @@ class RouteRegistrar
     {
         // Routes for Vue components.
         $this->router->group(['middleware' => ['web', 'auth']], function ($router) {
-            $router->resource('elasticshield/indices', 'ElasticShieldIndexController', ['except' => ['show', 'edit', 'update', 'create']]);
+            $router->resource('oauthshield/indices', 'OAuthShieldIndexController', ['except' => ['show', 'edit', 'update', 'create']]);
         });
         // Api routes
         $this->router->group(['middleware' => ['api', 'auth:api']], function ($router) {
-            $router->resource('api/elasticshield/indices', 'ElasticShieldIndexController', ['except' => ['show', 'edit', 'update', 'create']]);
+            $router->resource('api/oauthshield/indices', 'OAuthShieldIndexController', ['except' => ['show', 'edit', 'update', 'create']]);
         });
     }
 
@@ -117,19 +117,19 @@ class RouteRegistrar
     {
         $this->router->group(['middleware' => ['web', 'auth']], function ($router) {
             $router->get('/oauth/scopes', [
-                'uses' => 'ElasticShieldScopeController@all',
+                'uses' => 'OAuthShieldScopeController@all',
             ]);
 
             $router->get('/oauth/personal-access-tokens', [
-                'uses' => 'ElasticShieldPersonalAccessTokenController@forUser',
+                'uses' => 'OAuthShieldPersonalAccessTokenController@forUser',
             ]);
 
             $router->post('/oauth/personal-access-tokens', [
-                'uses' => 'ElasticShieldPersonalAccessTokenController@store',
+                'uses' => 'OAuthShieldPersonalAccessTokenController@store',
             ]);
 
             $router->delete('/oauth/personal-access-tokens/{token_id}', [
-                'uses' => 'ElasticShieldPersonalAccessTokenController@destroy',
+                'uses' => 'OAuthShieldPersonalAccessTokenController@destroy',
             ]);
         });
 
@@ -137,19 +137,19 @@ class RouteRegistrar
         $this->router->group(['middleware' => ['api', 'auth:api']], function ($router) {
 
             $router->get('/api/oauth/scopes', [
-                'uses' => 'ElasticShieldScopeController@all',
+                'uses' => 'OAuthShieldScopeController@all',
             ]);
 
             $router->get('/api/oauth/personal-access-tokens', [
-                'uses' => 'ElasticShieldPersonalAccessTokenController@forUser',
+                'uses' => 'OAuthShieldPersonalAccessTokenController@forUser',
             ]);
 
             $router->post('/api/oauth/personal-access-tokens', [
-                'uses' => 'ElasticShieldPersonalAccessTokenController@store',
+                'uses' => 'OAuthShieldPersonalAccessTokenController@store',
             ]);
 
             $router->delete('/api/oauth/personal-access-tokens/{token_id}', [
-                'uses' => 'ElasticShieldPersonalAccessTokenController@destroy',
+                'uses' => 'OAuthShieldPersonalAccessTokenController@destroy',
             ]);
         });
     }
