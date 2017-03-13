@@ -45,7 +45,7 @@ class ShieldServiceProvider extends ServiceProvider
 
         // Define the scopes available for Passport.
         Passport::tokensCan([
-            'head' => 'Perform HEAD requests.'
+            'head' => 'Perform HEAD requests.',
             'get' => 'Perform HTTP GET requests.',
             'post' => 'Perform HTTP POST requests.',
             'put' => 'Perform HTTP PUT requests.',
