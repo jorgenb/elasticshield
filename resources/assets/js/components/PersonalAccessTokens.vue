@@ -190,7 +190,7 @@
              */
             createRwToken () {
                 this.form.name = 'ELASTIC_API_RW_USER';
-                this.form.scopes = ['get', 'post', 'put', 'delete'];
+                this.form.scopes = ['get', 'post', 'put', 'delete', 'head'];
                 this.store();
             },
             /**
@@ -198,7 +198,7 @@
              */
             createRoToken () {
                 this.form.name = 'ELASTIC_API_RO_USER';
-                this.form.scopes = ['get'];
+                this.form.scopes = ['get', 'head'];
                 this.store();
             },
             /**
