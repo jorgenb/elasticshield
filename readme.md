@@ -16,7 +16,7 @@ Features:
 
 - Simplified authentication process using long lived Personal Access Tokens.
 - Rate limiting on authentication attempts.
-- Tie Oauth scopes as HTTP request methods (e.g. 'GET', 'PUT', 'POST', 'DELETE') for your token. 
+- Tie Oauth scopes as HTTP request methods (e.g. 'GET', 'PUT', 'POST', 'DELETE', 'HEAD'') for your token. 
 - Client authenticates once and then get’s a JWT token that expires after a set time.
 - A user can have one or more indices protected by a token.
 - Elastic shield JSON Api for managing indices and tokens.
@@ -56,7 +56,7 @@ Install the OAuth Shield package by adding it to your `composer.json` file:
         "php": ">=5.6.4",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
-        "jorgenb/oauthshield": "v0.1.1"
+        "jorgenb/oauthshield": "v0.1.3"
     },
 ```
 
@@ -348,8 +348,6 @@ This file performs a series of HTTP tests against the OAuth Shield JSON Api.
 
 Make sure to update your `TestCase.php` file located in the `tests` directory to reflect your environment.
 
-Should you wish to make the tests part of your Webpack build you can add the tests to your `webpack.mix.js` file:
-
 ## JSON Api
 Elastic Shield includes a JSON API for managing Elasticsearch indices and personal access tokens.
 Below you can find a review of all the API routes.
@@ -500,6 +498,8 @@ http {
 server {
   listen 8080;
   
+  client_body_buffer_size 10M;
+  
   # REMEMBER! Protect this endpoint from the world. Only localhost should be allowed access to this route.
   location /_token { proxy_pass http://localhost/api/token; }
 
@@ -521,7 +521,7 @@ server {
     access_by_lua_file /full/path/to/oauthshield.lua;
     
     # Send the request to Elasticsearch as you would normally
-    proxy_pass http://elasticsearch/$uri;
+    proxy_pass http://elasticsearch;
     }
   }
 }
@@ -611,11 +611,12 @@ local restrictions = {
     ["^/?[^/]*/?[^/]*/_validate/query"] = { "GET", "POST" },
     ["/_cluster.*"]                     = { "GET" },
     ["^/?[^/]*/?[^/]*/_bulk"]           = { "GET", "POST" },
+    ["^/?[^/]*/?[^/]*/_all"]            = { "GET", "POST" },
     ["^/?[^/]*/?[^/]*/_refresh"]        = { "GET", "POST" },
     ["^/?[^/]*/?[^/]*/?[^/]*/_create"]  = { "GET", "POST" },
     ["^/?[^/]*/?[^/]*/?[^/]*/_update"]  = { "GET", "POST" },
-    ["^/?[^/]*/?[^/]*/?.*"]             = { "GET", "POST", "PUT", "DELETE" },
-    ["^/?[^/]*/?[^/]*$"]                = { "GET", "POST", "PUT", "DELETE" },
+    ["^/?[^/]*/?[^/]*/?.*"]             = { "GET", "POST", "PUT", "DELETE", "HEAD" },
+    ["^/?[^/]*/?[^/]*$"]                = { "GET", "POST", "PUT", "DELETE", "HEAD" },
     ["/_aliases"]                       = { "GET", "POST" }
 }
 
