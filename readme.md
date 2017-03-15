@@ -534,17 +534,17 @@ local jwt = require "resty.jwt"
 local cjson = require "cjson"
 local authHeader = ngx.req.get_headers()["Authorization"]
 local uri = ngx.var.uri
-local uri_resource = uri:match('%/(.-)%/') -- Capture all characters between first and second slash.
+local uri_resource = uri:match('^%/(%w+)') -- Capture all alphanumeric characters after the first slash.
 local method = ngx.req.get_method()
 
 jwt_token = ngx.var.cookie_jwt -- global
 
 -- If header is not set or string is empty flat out deny the request.
 if not authHeader or authHeader == '' then
-	ngx.status = ngx.HTTP_FORBIDDEN
-    ngx.header.content_type = "application/json; charset=utf-8"
-    ngx.say(cjson.encode({ error = "No authorization header provided." }))
-    ngx.exit(ngx.HTTP_OK)
+  ngx.status = ngx.HTTP_FORBIDDEN
+  ngx.header.content_type = "application/json; charset=utf-8"
+  ngx.say(cjson.encode({ error = "No authorization header provided." }))
+  ngx.exit(ngx.HTTP_OK)
 end
 
 -- Check if client sent a token. If not, authenticate and get token based on credentials.
@@ -556,7 +556,7 @@ if not jwt_token then
 	local response = ngx.location.capture("/_token/" .. uri_resource)
 
 	-- is client rate limited?
-    if response.status == 429 then
+        if response.status == 429 then
 		ngx.status = ngx.HTTP_FORBIDDEN
 		ngx.header.content_type = "application/json; charset=utf-8"
     	ngx.say(cjson.encode({ error = "Too Many Authentication Attempts." }))
@@ -605,7 +605,7 @@ end
 -- Define all Elasticsearch API routes and methods.
 local allowed  = false
 local restrictions = {
-	["^/$"]                             = { "GET", "HEAD" },
+    ["^/$"]                             = { "GET", "HEAD" },
     ["^/?[^/]*/?[^/]*/_search"]         = { "GET", "POST" },
     ["^/?[^/]*/?[^/]*/_msearch"]        = { "GET", "POST" },
     ["^/?[^/]*/?[^/]*/_validate/query"] = { "GET", "POST" },
