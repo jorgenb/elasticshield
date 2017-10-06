@@ -50,6 +50,7 @@ class ShieldServiceProvider extends ServiceProvider
             'post' => 'Perform HTTP POST requests.',
             'put' => 'Perform HTTP PUT requests.',
             'delete' => 'Perform HTTP DELETE requests.',
+            'api' => 'Perform API requests',
         ]);
     }
 
