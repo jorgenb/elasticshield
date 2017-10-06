@@ -115,7 +115,7 @@ class RouteRegistrar
      */
     public function forPersonalAccessTokens()
     {
-        $this->router->group(['middleware' => ['web', 'auth', 'scope:api']], function ($router) {
+        $this->router->group(['middleware' => ['web', 'auth']], function ($router) {
             $router->get('/oauth/scopes', [
                 'uses' => 'OAuthShieldScopeController@all',
             ]);
