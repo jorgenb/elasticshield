@@ -103,7 +103,7 @@ class RouteRegistrar
             $router->resource('oauthshield/indices', 'OAuthShieldIndexController', ['except' => ['show', 'edit', 'update', 'create']]);
         });
         // Api routes
-        $this->router->group(['middleware' => ['api', 'auth:api']], function ($router) {
+        $this->router->group(['middleware' => ['api', 'auth:api', 'scope:api']], function ($router) {
             $router->resource('api/oauthshield/indices', 'OAuthShieldIndexController', ['except' => ['show', 'edit', 'update', 'create']]);
         });
     }
@@ -115,7 +115,7 @@ class RouteRegistrar
      */
     public function forPersonalAccessTokens()
     {
-        $this->router->group(['middleware' => ['web', 'auth']], function ($router) {
+        $this->router->group(['middleware' => ['web', 'auth', 'scope:api']], function ($router) {
             $router->get('/oauth/scopes', [
                 'uses' => 'OAuthShieldScopeController@all',
             ]);
@@ -134,7 +134,7 @@ class RouteRegistrar
         });
 
 
-        $this->router->group(['middleware' => ['api', 'auth:api']], function ($router) {
+        $this->router->group(['middleware' => ['api', 'auth:api', 'scope:api']], function ($router) {
 
             $router->get('/api/oauth/scopes', [
                 'uses' => 'OAuthShieldScopeController@all',

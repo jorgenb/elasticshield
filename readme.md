@@ -352,6 +352,15 @@ Make sure to update your `TestCase.php` file located in the `tests` directory to
 Elastic Shield includes a JSON API for managing Elasticsearch indices and personal access tokens.
 Below you can find a review of all the API routes.
 
+### Checking scopes
+
+Add the following middleware to the `$routeMiddleware` property of your `app/Http/Kernel.php` file:
+
+```
+'scopes' => \Laravel\Passport\Http\Middleware\CheckScopes::class,
+'scope' => \Laravel\Passport\Http\Middleware\CheckForAnyScope::class,
+```
+
 Standard CURL syntax is used when demonstrating making HTTP requests to the endpoints.
 
 ### Indices operations
